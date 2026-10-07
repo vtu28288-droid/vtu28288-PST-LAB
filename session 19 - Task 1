@@ -1,0 +1,60 @@
+
+Given a square matrix, calculate the absolute difference between the sums of its diagonals.
+
+For example, the square matrix  is shown below:
+
+1 2 3
+4 5 6
+9 8 9  
+The left-to-right diagonal = .
+The right-to-left diagonal = .
+Their absolute difference is .
+
+Function description
+
+Complete the  function with the following parameter:
+
+: a 2-D array of integers
+
+
+program :
+
+import java.util.*;
+
+public class Main {
+
+    public static int diagonalDifference(List<List<Integer>> arr) {
+        int n = arr.size();
+        int leftDiagonal = 0;
+        int rightDiagonal = 0;
+
+        for (int i = 0; i < n; i++) {
+            leftDiagonal += arr.get(i).get(i);
+            rightDiagonal += arr.get(i).get(n - 1 - i);
+        }
+
+        return Math.abs(leftDiagonal - rightDiagonal);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+
+        List<List<Integer>> arr = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            List<Integer> row = new ArrayList<>();
+
+            for (int j = 0; j < n; j++) {
+                row.add(sc.nextInt());
+            }
+
+            arr.add(row);
+        }
+
+        System.out.println(diagonalDifference(arr));
+
+        sc.close();
+    }
+}
