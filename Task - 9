@@ -1,0 +1,75 @@
+Task 9 (Easy): Calculator Unit Testing
+Problem Description
+Write unit tests for calculator operations including addition and division.
+Input Format
+Arithmetic expression.
+Output Format
+Display test result.
+Sample Input
+10 + 20
+Sample Output
+Test Passed
+
+
+program:
+
+import java.util.Scanner;
+
+class Calculator {
+
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    int divide(int a, int b) {
+        if (b == 0) {
+            throw new ArithmeticException("/ by zero");
+        }
+        return a / b;
+    }
+}
+
+public class calculator {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String input = sc.nextLine().trim();
+        String[] parts = input.split("\\s+");
+
+        int a = Integer.parseInt(parts[0]);
+        String operator = parts[1];
+        int b = Integer.parseInt(parts[2]);
+
+        Calculator calc = new Calculator();
+
+        try {
+            if (operator.equals("+")) {
+                int result = calc.add(a, b);
+
+                if (result == a + b) {
+                    System.out.println("Test Passed");
+                } else {
+                    System.out.println("Test Failed");
+                }
+
+            } else if (operator.equals("/")) {
+                int result = calc.divide(a, b);
+
+                if (result == a / b) {
+                    System.out.println("Test Passed");
+                } else {
+                    System.out.println("Test Failed");
+                }
+
+            } else {
+                System.out.println("Invalid operator");
+            }
+
+        } catch (ArithmeticException e) {
+            System.out.println("Test Passed");
+        }
+
+        sc.close();
+    }
+}
