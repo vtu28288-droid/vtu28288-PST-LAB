@@ -1,0 +1,42 @@
+You have a browser of one tab where you start on the homepage and you can visit another url, get back in the history number of steps or move forward in the history number of steps.
+
+Implement the BrowserHistory class:
+
+BrowserHistory(string homepage) Initializes the object with the homepage of the browser.
+void visit(string url) Visits url from the current page. It clears up all the forward history.
+string back(int steps) Move steps back in history. If you can only return x steps in the history and steps > x, you will return only x steps. Return the current url after moving back in history at most steps.
+string forward(int steps) Move steps forward in history. If you can only forward x steps in the history and steps > x, you will forward only x steps. Return the current url after forwarding in history at most steps.
+
+program :
+
+import java.util.*;
+
+class BrowserHistory {
+    private List<String> history;
+    private int current;
+
+    public BrowserHistory(String homepage) {
+        history = new ArrayList<>();
+        history.add(homepage);
+        current = 0;
+    }
+
+    public void visit(String url) {
+        while (history.size() > current + 1) {
+            history.remove(history.size() - 1);
+        }
+
+        history.add(url);
+        current++;
+    }
+
+    public String back(int steps) {
+        current = Math.max(0, current - steps);
+        return history.get(current);
+    }
+
+    public String forward(int steps) {
+        current = Math.min(history.size() - 1, current + steps);
+        return history.get(current);
+    }
+}
