@@ -1,0 +1,74 @@
+
+
+A palindrome is a string that reads the same from left to right as it does from right to left.
+
+Given a string, , of  lowercase English letters, we define a -length rotation as cutting the first  characters from the beginning of  and appending them to the end of . For each , there are  possible -length rotations (where ). See the Explanation section for examples.
+
+Given  and , find all  -length rotations of ; for each rotated string, , print the maximum possible length of any palindromic substring of  on a new line.
+
+Input Format
+
+The first line contains an integer,  (the length of ).
+The second line contains a single string, .
+
+Constraints
+
+Output Format
+
+There should be  lines of output, where each line  contains an integer denoting the maximum length of any palindromic substring of rotation .
+
+Program :
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class Solution {
+
+    public static int longestPalindrome(String s) {
+        int n = s.length();
+        int maxLength = 1;
+
+        for (int i = 0; i < n; i++) {
+            int left = i;
+            int right = i;
+
+            while (left >= 0 && right < n &&
+                   s.charAt(left) == s.charAt(right)) {
+                maxLength = Math.max(maxLength, right - left + 1);
+                left--;
+                right++;
+            }
+
+            left = i;
+            right = i + 1;
+
+            while (left >= 0 && right < n &&
+                   s.charAt(left) == s.charAt(right)) {
+                maxLength = Math.max(maxLength, right - left + 1);
+                left--;
+                right++;
+            }
+        }
+
+        return maxLength;
+    }
+
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(
+            new InputStreamReader(System.in)
+        );
+
+        int n = Integer.parseInt(br.readLine().trim());
+        String s = br.readLine().trim();
+
+        String doubled = s + s;
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < n; i++) {
+            String rotation = doubled.substring(i, i + n);
+            result.append(longestPalindrome(rotation)).append('\n');
+        }
+
+        System.out.print(result);
+    }
+}
